@@ -5,12 +5,20 @@
 
 # Usage
 ```Swift
-let horizontalLoadingView = HorizontalLoadingView()
-view.addSubview(horizontalLoadingView)
-horizontalLoadingView.snp.makeConstraints { (make) in
-    make.leading.trailing.equalTo(selectSourceView)
-    make.top.equalTo(selectSourceView.snp.bottom)
-    make.height.equalTo(2)
+class WebViewController: UIViewController, UIWebViewDelegate {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let horizontalLoadingView = HorizontalLoadingView()
+        horizontalLoadingView.frame = CGRect(x: 0, y: 0, w: 200, h: 2)
+        view.addSubview(horizontalLoadingView)        
+    }
+
+    func webViewDidFinishLoad(_ webView: UIWebView) {        
+        horizontalLoadingView.stop()
+    }
+
+    func webViewDidStartLoad(_ webView: UIWebView) {        
+        horizontalLoadingView.start()
+    }
 }
-horizontalLoadingView.start()
 ```
